@@ -1,0 +1,226 @@
+*::before,
+*::after {
+  box-sizing: border-box;
+  border: 0;
+  margin: 0;
+  padding: 0;
+}
+:root {
+  --neutral-900: #12131a;
+  --neutral-800: #21222c;
+  --neutral-700: #2a2b37;
+  --neutral-600: #404254;
+  --neutral-200: #e4e4ef;
+  --neutral-100: #f2f2f7;
+  --neutral-0: #ffffff;
+  --purple-400: #d3a0fa;
+  --purple-500: #c27cf8;
+  --yellow-500: #ff9f00;
+  --orange-500: #fe8159;
+  --orange-800: #da3701;
+  --spacing-600: 48px;
+  --radius-8: 8px;
+}
+
+body {
+  max-width: 1440px;
+  margin: auto;
+  background-image: url("./assets/images/bg-dark-theme.png");
+  background-repeat: no-repeat;
+  background-position: center;
+  gap: 48px;
+  background-size: cover;
+  height: 100dvh;
+}
+.container {
+  font-family: "text-preset";
+  margin-left: 200px;
+  margin-right: 200px;
+  margin-top: 32px;
+  margin-bottom: 64px;
+  display: grid;
+  gap: 1rem;
+}
+
+@font-face {
+  font-family: "text-preset";
+  src: url("./assets/fonts/DM_Sans/static/DMSans-Bold.ttf") format("truetype");
+  font-weight: 700;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "text-preset1_mobile";
+  src: url("./assets/fonts/DM_Sans/static/DMSans-Bold.ttf") format("truetype");
+  line-height: 100%;
+  font-size: 40px;
+  letter-spacing: -1px;
+}
+
+@font-face {
+  font-family: "text-preset";
+  src: url("./assets/fonts/DM_Sans/static/DMSans-SemiBold.ttf")
+    format("truetype");
+  font-weight: 600;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "text-preset";
+  src: url("./assets/fonts/DM_Sans/static/DMSans-Regular.ttf")
+    format("truetype");
+  font-weight: 400;
+  font-style: normal;
+  line-height: 140%;
+  font-size: 20px;
+  letter-spacing: -0.6px;
+}
+
+@font-face {
+  font-family: "text-preset";
+  src: url("./assets/fonts/DM_Sans/static/DMSans-Regular.ttf")
+    format("truetype");
+  font-weight: 300;
+  font-style: normal;
+}
+
+nav {
+  height: 2.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.tog-btn {
+  width: 22px;
+  height: 22px;
+}
+.imgc {
+  background-color: var(--neutral-700);
+  padding: 10px;
+  border-radius: var(--radius-8);
+}
+.hero {
+  displace: grid;
+  place-items: center;
+}
+h2 {
+  font-family: "text-preset";
+  color: var(--neutral-100);
+  text-wrap: balance;
+  line-height: 100%;
+  font-size: 64px;
+  letter-spacing: -1px;
+  text-align: center;
+  margin: 0px;
+}
+.textar {
+  width: 100%;
+  border-radius: 12px;
+  background-color: var(--neutral-800);
+  border-width: 2px;
+  border-color: var(--neutral-700);
+  padding: 10px;
+  color: var(--neutral-200);
+  font-family: "text-preset";
+  font-weight: 300;
+}
+.whole {
+  display: flex;
+  justify-content: space-between;
+  flex-direction: row;
+  align-items: center;
+  color: var(--neutral-200);
+}
+label {
+  font-family: "text-preset";
+  font-weight: 300;
+
+  line-height: 130%;
+  font-size: 16px;
+  letter-spacing: -0.6px;
+}
+.check {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+}
+.input {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+.cardgroup {
+  display: flex;
+  flex-direction: row;
+  gap: 1em;
+}
+.card {
+  flex: 1;
+
+  display: grid;
+  gap: 0.5em;
+  border-radius: 12px;
+  color: var(--neutral-900);
+  text-align: start;
+  padding: 1em;
+  background-repeat: no-repeat;
+  background-position: right;
+}
+.first {
+  background-image: url("./assets/images/pattern-character-count.svg");
+  background-color: var(--purple-400);
+}
+
+.first h2 {
+  text-align: start;
+  color: var(--neutral-900);
+}
+
+.second {
+  background-image: url("./assets/images/pattern-word-count.svg");
+
+  background-color: var(--yellow-500);
+}
+.second h2 {
+  text-align: start;
+  color: var(--neutral-900);
+}
+
+.third {
+  background-image: url("./assets/images/pattern-sentence-count.svg");
+  background-color: var(--orange-500);
+}
+.third h2 {
+  text-align: start;
+  color: var(--neutral-900);
+}
+h4 {
+  font-family: "text-preset";
+  font-weight: 600;
+  color: var(--neutral-200);
+  line-height: 130%;
+  font-size: 24px;
+  letter-spacing: -1px;
+}
+@media (max-width: 357px;) {
+  nav {
+    height: 30px;
+  }
+  body {
+    padding-left: 3px;
+    padding-right: 3px;
+    padding-top: 16px;
+    margin: 0;
+  }
+  .tog-btn {
+    width: 22px;
+    height: 22px;
+  }
+  .logo {
+    width: 24px;
+    height: 40px;
+  }
+  h2 {
+    font-size: 40px;
+  }
+}
