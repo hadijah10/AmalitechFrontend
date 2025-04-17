@@ -3,33 +3,44 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
   <link rel="icon" type="image/png" sizes="32x32" href="./assets/images/favicon-32x32.png">
   <link rel="stylesheet" href="style.css">
   <title>Frontend Mentor | Character counter</title>
+  <script src="./assets/js/index.js" defer></script>
 </head>
 <body>
   <div class="container">
     <nav>
       <img class="logo" src="./assets/images/logo-dark-theme.svg" alt="Logo here">
       <div class="imgc">
-        <img src="./assets/images/icon-sun.svg" alt="toggle-button" class="tog-btn"/>
+        <img src="./assets/images/icon-sun.svg" alt="toggle-button" class="tog-btn two"/>
+        <img src="./assets/images/icon-moon.svg" alt="toggle-button" class="tog-btn one"/>
       </div>
     </nav>
     <div class="hero">
       <h2>   Analyze your text in real-time.</h2>
     </div>
     <div class="input">
-      <textarea name="textinp" id="" rows="8" cols="20" class="textar" placeholder="Start typing here… (or paste your text)"></textarea>
-        <div class="whole">
+      <textarea name="textinp" id="" rows="8" cols="20"  class="textar" placeholder="Start typing here… (or paste your text)"></textarea>
+      <div class="charlimit">
+        <img src="./assets/images/icon-info.svg" alt="" class="limit">
+        <p class="limitmsg"> 
+          Limit reached! Your text exceeds 
+          <span class="limitMsgNumber"></span> characters.
+        </p>
+      </div>
+      <div class="whole">
           <div class="check">
           <div  class=" selector">
-            <input type="checkbox" name="" id="">
-            <label for="spaces">Exclude Spaces</label>
+            <input type="checkbox" name="" id="spacecheck">
+            <label for="spacecheck" id="excludespace">Exclude Spaces</label>
           </div>
           <div class="selector">
-            <input type="checkbox" name="" id="">
-          <label for="spaces">Set Character Limit</label>
+            <input type="checkbox" name="" id="charcheck">
+            <label for="charcheck" id="charcheck">
+              Set Character Limit
+            </label>
+            <input type="number" class="maxlength">
           </div>
           </div>
           <p>Approx. reading time:&lt; minutes</p>
@@ -38,60 +49,32 @@
     <div class="endgroup">
       <div class="cardgroup">
         <div class="card first">
-          <h2>278</h2>
+          <h2 class="charcount">00</h2>
           <p>Total Character</p>
         </div>
         <div class="card second">
-          <h2>278</h2>
+          <h2 class="wordcount">00</h2>
           <p>  Word Count</p>
         </div>
         <div class="card third">
-          <h2>278</h2>
+          <h2 class="sentcount">00</h2>
           <p>Sentence Count</p>
         </div>
       </div>
       <section class="density">
         <h4>  Letter Density</h4>
+        <p class="noletterfound">
+          No characters found. Start typing to see letter density.
+        </p>
+     <div class="data">
       <section class="lettercount">
-        <div class="countwrapper">
-          <span class="letter">E</span>
-          <div class="score">
-            <div class="fill one"></div>
-          </div>
-          <span class="percent">40 (16.06%)</span>
-        </div>
-        <div class="countwrapper">
-          <span class="letter">I</span>
-          <div class="score">
-            <div class="fill two"></div>
-          </div>
-          <span class="percent">29 (11.65%)</span>
-        </div>
-        <div class="countwrapper">
-          <span class="letter">T</span>
-          <div class="score">
-            <div class="fill three"></div>
-          </div>
-          <span class="percent">28 (11.24%)</span>
-        </div>
-        <div class="countwrapper">
-          <span class="letter">O</span>
-          <div class="score">
-            <div class="fill four"></div>
-          </div>
-          <span class="percent">22 (8.84%)</span>
-        </div>
-        <div class="countwrapper">
-          <span class="letter">N</span>
-          <div class="score">
-            <div class="fill five"></div>
-          </div>
-          <span class="percent">21 (8.43%)</span>
-        </div>
+       
       </section>
-      <p>See more 
-       <img src="./assets/images/Title.png" alt="dropdowm"/>
+      <p class="showMoreOrLessToggle one">See more 
+       <img src="./assets/images/downarrow.png" alt="dropdowm" class="dropUpOrDownButton" id="dropUpOrDownButton"/>
       </p>
+
+     </div>
       </section>
     </div>
     <div>
