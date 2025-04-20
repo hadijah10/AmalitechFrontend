@@ -139,6 +139,9 @@ h2 {
   outline: none;
   border-color: var(--purple-500);
 }
+.textar:hover{
+  cursor: pointer;
+}
 .whole {
   display: flex;
   justify-content: space-between;
@@ -331,6 +334,7 @@ h4 {
 
 .showMoreOrLessToggle{
   cursor: pointer;
+ 
 }
 /*768px*/
 @media (max-width:800px) {
