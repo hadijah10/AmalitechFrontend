@@ -19,15 +19,20 @@ const showLessButton = document.querySelector('.showMoreOrLessToggle.two')
 const limitNumber = document.querySelector('.limitMsgNumber')
 const densities = document.querySelector('.data')
 const dropUpOrDownButton = document.querySelector('img.dropUpOrDownButton')
+const time = document.querySelector('.time')
 
 let showless=true;
+//textarea input eventlistener
 textareacontent.addEventListener('input',(event) => {
     updateCount(event,showless)
 })
 let isdark = true
+//dark or light mode eventlistener
 imgc.addEventListener('click',event => {
     darkMode(event)
 })
+
+//character limit checkbox event listener
 charLimitCheckbox.addEventListener('change',event => {
     if (charLimitCheckbox.checked == true){
         charLimit.style.display = "block"
@@ -36,19 +41,22 @@ charLimitCheckbox.addEventListener('change',event => {
         charLimit.style.display = "none"
         textareacontent.removeAttribute('maxlength')
     }
-    updateCount(event)
+
 })
+//maxlength input bar eventlistener
 charLimit.addEventListener('change',event => {
     textareacontent.setAttribute('maxLength',parseInt(event.target.value))
     limitNumber.textContent = event.target.value
     text = textareacontent.value.toLowerCase()
     showDanger(text)
 })
+
+//exclude space for character count eventlistener
 excludeSpaceCheckbox.addEventListener('change',event => {
 characterCount(textareacontent.value.toLowerCase())
 })
 
-
+//dark and light mode toggle function
 function darkMode(event){
     isdark = !isdark
     if(isdark == false){
@@ -79,6 +87,7 @@ function darkMode(event){
   
 }
  
+//eventlistener for toggling between show more or less
 showMoreOrLess.addEventListener('click',event => {
     showless = !showless
     if(showless == true){
@@ -95,6 +104,7 @@ showMoreOrLess.addEventListener('click',event => {
         updateCount(event,showless)
     })
 
+    //shows whether the maxlength of the textarea has been reached or exceeded.
     function showDanger(text){
         let maxlength1 = textareacontent.getAttribute("maxlength")
         if(text.length >= maxlength1){
@@ -106,10 +116,14 @@ showMoreOrLess.addEventListener('click',event => {
             danger.style.display = "none"
         }
     }
+
+    //retrieving the unique characters out of the textarea input
     function getUniqueChars(text){
         let uniqueChars=[...new Set(text.toUpperCase())]
         return uniqueChars
     }
+
+    //counting the number of times the unique character appears and return its densities
     function charsCount(text){
         let inputtext = text.toUpperCase()
         let inputlength = inputtext.length
@@ -128,6 +142,8 @@ showMoreOrLess.addEventListener('click',event => {
     })
     return letterDensity;
 }
+
+//return the unique characters to be displayed in an array.
 function displayUniqueCharsArray(letterDen){
     letterTracker.innerHTML = "";
     let newDivArray = []
@@ -148,6 +164,8 @@ function displayUniqueCharsArray(letterDen){
     return newDivArray
 
 }
+
+//display the unique characters on screen together with show more or less option
 function displayUniqueCharDensities(charArray,showless){
     let newCharArray = []
     if(showless==true){
@@ -162,20 +180,22 @@ function displayUniqueCharDensities(charArray,showless){
     }
     
     )
-    
-  
 }
+//display whether the textarea is empty and no densities are found or display densities when there are characters in the textarea.
     function ShowDensity(text){
         if(text.length>0){
             noDensity.style.display = "none"
             densities.style.display = "block"
+            time.textContent = "1"
         }
         else{
             noDensity.style.display = "block"
             densities.style.display = "none"
+            time.textContent = "0"
             }
     }
 
+    //display the show more or less function when the unique characters in the textarea are more five 
      function showMoreOrLessfunc(charArray){
         if(charArray.length > 5){
             showMoreOrLess.style.display = "block"
@@ -185,27 +205,30 @@ function displayUniqueCharDensities(charArray,showless){
        showMoreOrLess.style.display = "none"
         }
      }
-function characterCount(text){
-    let characters= excludeSpaceCheckbox.checked == true? text.replace(/\s+/g,''):text
-    charcount.textContent = characters.length.toString().padStart(2, "0")
-}
 
-function updateCount(event,showless=true){
-    let maxlength = textareacontent.getAttribute("maxlength")
-     let content = textareacontent.value.toLowerCase();
-     let uniqueChar = content.replace(/[^A-Z0-9]/ig,'')
-     let words = content==''?[]:content.trim().split(/\s/)
-     let sentence = content.trim().split(/[.?!]/) //split(/[.?!]/)
-      characterCount(content)
-   wordcount.textContent = words.length.toString().padStart(2, "0");
-   sentcount.textContent = (sentence.length-1).toString().padStart(2, "0")
-   if(charLimitCheckbox.checked == true && maxlength?.length> 0){
-     showDanger(content)
-   }
-     getUniqueChars(uniqueChar)
-     let letterDen = charsCount(uniqueChar)
-     let charArray = displayUniqueCharsArray(letterDen)
-        ShowDensity(content)
-     displayUniqueCharDensities(charArray,showless)
+     //function to count characters in the textarea
+    function characterCount(text){
+        let characters= excludeSpaceCheckbox.checked == true? text.replace(/\s+/g,''):text
+        charcount.textContent = characters.length.toString().padStart(2, "0")
+    }
 
-}
+    //updates the densities together with the character count,word count and sentence count based on textarea
+    function updateCount(event,showless=true){
+        let maxlength = textareacontent.getAttribute("maxlength")
+        let content = textareacontent.value.toLowerCase();
+        let uniqueChar = content.replace(/[^A-Z0-9]/ig,'')
+        let words = content.trim()?.split(/\s/)
+        let sentence = content.trim().split(/[.?!]/) //split(/[.?!]/)
+        console.log(sentence)
+        characterCount(content)
+    wordcount.textContent = words.length.toString().padStart(2, "0");
+    sentcount.textContent = (sentence.length-1).toString().padStart(2, "0")
+    if(charLimitCheckbox.checked == true && maxlength?.length> 0){
+        showDanger(content)
+    }
+        getUniqueChars(uniqueChar)
+        let letterDen = charsCount(uniqueChar)
+        let charArray = displayUniqueCharsArray(letterDen)
+            ShowDensity(content.trim())
+        displayUniqueCharDensities(charArray,showless)
+    }
