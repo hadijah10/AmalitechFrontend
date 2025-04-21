@@ -219,9 +219,6 @@ function displayUniqueCharDensities(charArray,showless){
         let uniqueChar = content.replace(/[^A-Z0-9]/ig,'')
         let words = content.trim()==''?[]:content.trim().split(/\s+/)
         let sentence = content.trim().split(/[.?!]/) //split(/[.?!]/)
-        console.log(words)
-        console.log(sentence)
-        console.log(typeof(content))
         characterCount(content)
     wordcount.textContent = words.length.toString().padStart(2, "0");
     sentcount.textContent = (sentence.length-1).toString().padStart(2, "0")
