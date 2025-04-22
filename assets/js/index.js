@@ -156,8 +156,6 @@ function displayUniqueCharsArray(letterDen){
           <div class="fill new" style="width:${element.uniqueCharPercentage}%;background-color:var(--purple-400)"></div>
         </div>
         <span class="percent">${element.counter} (${element.uniqueCharPercentage}%)</span>`;
-       
-
         newDivArray.push(newdiv)
     }
   )
@@ -218,10 +216,10 @@ function displayUniqueCharDensities(charArray,showless){
         let content = textareacontent.value.toLowerCase();
         let uniqueChar = content.replace(/[^A-Z0-9]/ig,'')
         let words = content.trim()==''?[]:content.trim().split(/\s+/)
-        let sentence = content.trim().split(/[.?!]/) //split(/[.?!]/)
+        let sentence = content.trim().split(/[.?!]/).filter(data => {return data.length>0}) //split(/[.?!]/)
         characterCount(content)
     wordcount.textContent = words.length.toString().padStart(2, "0");
-    sentcount.textContent = (sentence.length-1).toString().padStart(2, "0")
+    sentcount.textContent = sentence.length.toString().padStart(2, "0")
     if(charLimitCheckbox.checked == true && maxlength?.length> 0){
         showDanger(content)
     }
