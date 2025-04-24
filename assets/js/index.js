@@ -23,28 +23,18 @@ const time = document.querySelector('.time')
 
 let showless=true;
 //textarea input eventlistener
-textareacontent.addEventListener('input',(event) => {
-    updateCount(event,showless)
-})
+textareacontent?.addEventListener('input',event => {
+    updateCountAndDensities(showless)
+}
+)
 let isdark = true
 //dark or light mode eventlistener
-imgc.addEventListener('click',event => {
-    darkMode(event)
-})
+imgc?.addEventListener('click',darkMode)
 
 //character limit checkbox event listener
-charLimitCheckbox.addEventListener('change',event => {
-    if (charLimitCheckbox.checked == true){
-        charLimit.style.display = "block"
-    }
-    else{
-        charLimit.style.display = "none"
-        textareacontent.removeAttribute('maxlength')
-    }
-
-})
+charLimitCheckbox?.addEventListener('change',showCharacterLimitInputevent)
 //maxlength input bar eventlistener
-charLimit.addEventListener('change',event => {
+charLimit?.addEventListener('change',event => {
     textareacontent.setAttribute('maxLength',parseInt(event.target.value))
     limitNumber.textContent = event.target.value
     text = textareacontent.value.toLowerCase()
@@ -52,12 +42,16 @@ charLimit.addEventListener('change',event => {
 })
 
 //exclude space for character count eventlistener
-excludeSpaceCheckbox.addEventListener('change',event => {
-characterCount(textareacontent.value.toLowerCase())
-})
+excludeSpaceCheckbox?.addEventListener('change',event =>{
+    // const text = textareacontent.value.toLowerCase()
+    // let characters= excludeSpaceCheckbox?.checked == true? text.replace(/\s+/g,''):text
+    // charcount.textContent = characters.length.toString().padStart(2, "0")
+    updateCountAndDensities(showless=showless)
+}
+)
 
 //dark and light mode toggle function
-function darkMode(event){
+function darkMode(){
     isdark = !isdark
     if(isdark == false){
         document.body.style.backgroundImage  = "url('./assets/images/bg-light-theme.png')";
@@ -66,7 +60,6 @@ function darkMode(event){
         root.style.setProperty('--neutral-100', '#12131A');
         root.style.setProperty('--neutral-700', '#f2f2f7');
         root.style.setProperty('--neutral-800', ' #f2f2f7');
-
         moon.style.display = "block"
         sun.style.display = "none"
         logo.src = "./assets/images/logo-light-theme.svg";
@@ -88,7 +81,7 @@ function darkMode(event){
 }
  
 //eventlistener for toggling between show more or less
-showMoreOrLess.addEventListener('click',event => {
+showMoreOrLess?.addEventListener('click',event => {
     showless = !showless
     if(showless == true){
         showMoreOrLess.innerHTML = `
@@ -101,7 +94,7 @@ showMoreOrLess.addEventListener('click',event => {
        <img src="./assets/images/uparrow.png" alt="dropdowm" class="dropUpOrDownButton" id="dropUpOrDownButton"/>
          `
     }
-        updateCount(event,showless)
+        updateCountAndDensities(event,showless)
     })
 
     //shows whether the maxlength of the textarea has been reached or exceeded.
@@ -119,12 +112,14 @@ showMoreOrLess.addEventListener('click',event => {
 
     //retrieving the unique characters out of the textarea input
     function getUniqueChars(text){
-        let uniqueChars=[...new Set(text.toUpperCase())]
+        let text1 = text.replace(/[^A-Z0-9]/ig,'')
+        let uniqueChars=[...new Set(text1.toUpperCase())]
         return uniqueChars
     }
 
     //counting the number of times the unique character appears and return its densities
-    function charsCount(text){
+    function charsCount(text1){
+        let text = text1.replace(/[^A-Z0-9]/ig,'')
         let inputtext = text.toUpperCase()
         let inputlength = inputtext.length
         let letterDensity = []
@@ -144,7 +139,7 @@ showMoreOrLess.addEventListener('click',event => {
 }
 
 //return the unique characters to be displayed in an array.
-function displayUniqueCharsArray(letterDen){
+function  uniqueCharsDensitiesArray(letterDen){
     letterTracker.innerHTML = "";
     let newDivArray = []
     letterDen.map( (element,index) => {
@@ -186,7 +181,7 @@ function displayUniqueCharDensities(charArray,showless){
         if(text.length>0){
             noDensity.style.display = "none"
             densities.style.display = "block"
-            time.textContent = "1"
+            time.textContent = `${Math.ceil(text.length/200)}`
         }
         else{
             noDensity.style.display = "block"
@@ -198,36 +193,63 @@ function displayUniqueCharDensities(charArray,showless){
     //display the show more or less function when the unique characters in the textarea are more five 
      function showMoreOrLessfunc(charArray){
         if(charArray.length > 5){
-            showMoreOrLess.style.display = "block"
-       
+            showMoreOrLess.style.display = "block"   
         }
         else{
        showMoreOrLess.style.display = "none"
         }
      }
-
+     
      //function to count characters in the textarea
     function characterCount(text){
-        let characters= excludeSpaceCheckbox.checked == true? text.replace(/\s+/g,''):text
-        charcount.textContent = characters.length.toString().padStart(2, "0")
+        let characters= excludeSpaceCheckbox?.checked == true? text.replace(/\s+/g,''):text
+        return characters.length.toString().padStart(2, "0")
+    }
+    function wordCount(text){
+        //let words = text.trim()==''?[]:text.trim().split(/\s+/)
+        let words = text.trim()==''?[]:text.trim().split(/\s+/)
+        return words.length.toString().padStart(2, "0");
+    }
+    function sentenceCount(text){
+        let sentence = text.trim().split(/[.?!]/).filter(data => {return data.length>0}) //split(/[.?!]/)
+        return sentence.length.toString().padStart(2, "0")
+    }
+
+    //update character count,word count and sentence count
+    function updateCharWordAndSentenceCount(){
+        let content = textareacontent.value.toLowerCase();
+        // let uniqueChar = content.replace(/[^A-Z0-9]/ig,'')
+         charcount.textContent = characterCount(content)
+         wordcount.textContent = wordCount(content)
+         sentcount.textContent = sentenceCount(content)
     }
 
     //updates the densities together with the character count,word count and sentence count based on textarea
-    function updateCount(event,showless=true){
+    function updateCountAndDensities(showless=true){
         let maxlength = textareacontent.getAttribute("maxlength")
         let content = textareacontent.value.toLowerCase();
-        let uniqueChar = content.replace(/[^A-Z0-9]/ig,'')
-        let words = content.trim()==''?[]:content.trim().split(/\s+/)
-        let sentence = content.trim().split(/[.?!]/) //split(/[.?!]/)
-        characterCount(content)
-    wordcount.textContent = words.length.toString().padStart(2, "0");
-    sentcount.textContent = (sentence.length-1).toString().padStart(2, "0")
+       updateCharWordAndSentenceCount()
     if(charLimitCheckbox.checked == true && maxlength?.length> 0){
         showDanger(content)
     }
-        getUniqueChars(uniqueChar)
-        let letterDen = charsCount(uniqueChar)
-        let charArray = displayUniqueCharsArray(letterDen)
-            ShowDensity(content.trim())
+        getUniqueChars(content)
+        let lettersDen = charsCount(content)
+        let charArray = uniqueCharsDensitiesArray(lettersDen)
+        ShowDensity(content.trim())
         displayUniqueCharDensities(charArray,showless)
     }
+
+    function showCharacterLimitInputevent() {
+        if (charLimitCheckbox.checked == true){
+            charLimit.style.display = "block"
+        }
+        else{
+            charLimit.style.display = "none"
+            textareacontent.removeAttribute('maxlength')
+            textareacontent.style.borderColor = "var(--neutral-700)" 
+            danger.style.display = "none"
+        }
+    
+    }
+
+module.exports = {getUniqueChars,charsCount,characterCount,wordCount,sentenceCount,uniqueCharsDensitiesArray,showMoreOrLessfunc,updateCharWordAndSentenceCount}
