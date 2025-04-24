@@ -336,6 +336,13 @@ h4 {
   cursor: pointer;
  
 }
+
+@media (max-width:940px) {
+.container{
+  margin-left: 5rem;
+  margin-right: 5rem;
+}
+}
 /*768px*/
 @media (max-width:800px) {
   h2{
@@ -376,7 +383,7 @@ label{
       gap: 1rem;
 }
 }
-@media (max-width: 400px) {
+@media (max-width: 500px) {
   
   nav {
     height: 1.5rem;

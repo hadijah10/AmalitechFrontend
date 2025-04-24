@@ -1,0 +1,21 @@
+{
+  "dependencies": {
+    "jest-environment-jsdom": "^29.7.0"
+  },
+  "name": "amalitechfrontend",
+  "version": "1.0.0",
+  "main": "index.js",
+  "devDependencies": {
+    "jest": "^29.7.0"
+  },
+  "jest":{
+    "testEnvironment":"jsdom"
+  },
+  "scripts": {
+    "test": "jest"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": ""
+}
