@@ -151,8 +151,6 @@ function  uniqueCharsDensitiesArray(letterDen){
           <div class="fill new" style="width:${element.uniqueCharPercentage}%;background-color:var(--purple-400)"></div>
         </div>
         <span class="percent">${element.counter} (${element.uniqueCharPercentage}%)</span>`;
-       
-
         newDivArray.push(newdiv)
     }
   )
@@ -228,6 +226,7 @@ function displayUniqueCharDensities(charArray,showless){
     function updateCountAndDensities(showless=true){
         let maxlength = textareacontent.getAttribute("maxlength")
         let content = textareacontent.value.toLowerCase();
+
        updateCharWordAndSentenceCount()
     if(charLimitCheckbox.checked == true && maxlength?.length> 0){
         showDanger(content)
