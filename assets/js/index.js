@@ -23,32 +23,51 @@ const time = document.querySelector('.time')
 
 let showless=true;
 //textarea input eventlistener
-textareacontent?.addEventListener('input',event => {
+textareacontent.addEventListener('input',event => {
     updateCountAndDensities(showless)
 }
 )
-let isdark = true
-//dark or light mode eventlistener
-imgc?.addEventListener('click',darkMode)
 
-//character limit checkbox event listener
-charLimitCheckbox?.addEventListener('change',showCharacterLimitInputevent)
-//maxlength input bar eventlistener
-charLimit?.addEventListener('change',event => {
-    textareacontent.setAttribute('maxLength',parseInt(event.target.value))
-    limitNumber.textContent = event.target.value
-    text = textareacontent.value.toLowerCase()
-    showDanger(text)
+//removing the eventlistener for textarea
+textareacontent.removeEventListener('input',event => {
+    updateCountAndDensities(showless)
 })
 
-//exclude space for character count eventlistener
+let isdark = true
+//dark or light mode eventlistener
+imgc.addEventListener('click',darkMode)
+//removing the eventlistener for darkmode
+imgc.removeEventListener('click',darkMode)
+
+//character limit checkbox event listener
+charLimitCheckbox.addEventListener('change',event => {
+    showCharacterLimitInputevent()
+})
+//removing the eventlistener for the checkbox
+charLimitCheckbox.removeEventListener('change',event => {
+    showCharacterLimitInputevent()
+})
+
+//maxlength input bar eventlistener
+charLimit.addEventListener('change',event => {
+   charlimitFunction(event)
+})
+//removing the eventlistener.
+charLimit.removeEventListener('change',event => {
+    charlimitFunction(event)
+ })
+
+//exclude space functionality for character count eventlistener
 excludeSpaceCheckbox?.addEventListener('change',event =>{
-    // const text = textareacontent.value.toLowerCase()
-    // let characters= excludeSpaceCheckbox?.checked == true? text.replace(/\s+/g,''):text
-    // charcount.textContent = characters.length.toString().padStart(2, "0")
     updateCountAndDensities(showless=showless)
 }
 )
+//removing the event listener on the excludespaceCheckbox.
+excludeSpaceCheckbox,removeEventListener('change',event =>{
+    updateCountAndDensities(showless=showless)
+}
+)
+
 
 //dark and light mode toggle function
 function darkMode(){
@@ -80,8 +99,17 @@ function darkMode(){
   
 }
  
-//eventlistener for toggling between show more or less
-showMoreOrLess?.addEventListener('click',event => {
+    //eventlistener for toggling between show more or less
+    showMoreOrLess.addEventListener('click',event => {
+        handleSHowMoreOrLess()
+        })
+
+    //removing the eventhandler on show more or less
+    showMoreOrLess.removeEventListener('click',event => {
+        handleSHowMoreOrLess()
+        })
+
+function handleSHowMoreOrLess(){
     showless = !showless
     if(showless == true){
         showMoreOrLess.innerHTML = `
@@ -94,8 +122,8 @@ showMoreOrLess?.addEventListener('click',event => {
        <img src="./assets/images/uparrow.png" alt="dropdowm" class="dropUpOrDownButton" id="dropUpOrDownButton"/>
          `
     }
-        updateCountAndDensities(event,showless)
-    })
+        updateCountAndDensities(showless)
+}
 
     //shows whether the maxlength of the textarea has been reached or exceeded.
     function showDanger(text){
@@ -108,6 +136,14 @@ showMoreOrLess?.addEventListener('click',event => {
             textareacontent.style.borderColor = "var(--neutral-700)" 
             danger.style.display = "none"
         }
+    }
+
+    //character limit function
+    function charlimitFunction(event){
+        textareacontent.setAttribute('maxLength',parseInt(event.target.value))
+        limitNumber.textContent = event.target.value
+        text = textareacontent.value.toLowerCase()
+        showDanger(text)
     }
 
     //retrieving the unique characters out of the textarea input
@@ -181,12 +217,12 @@ function displayUniqueCharDensities(charArray,showless){
         if(text.length>0){
             noDensity.style.display = "none"
             densities.style.display = "block"
-            time.textContent = `${Math.ceil(text.length/200)}`
+            time.textContent = `${Math.ceil(text.length/200)} minutes`
         }
         else{
             noDensity.style.display = "block"
             densities.style.display = "none"
-            time.textContent = "0"
+            time.textContent = "0 minute"
             }
     }
 
@@ -252,4 +288,3 @@ function displayUniqueCharDensities(charArray,showless){
     
     }
 
-module.exports = {getUniqueChars,charsCount,characterCount,wordCount,sentenceCount,uniqueCharsDensitiesArray,showMoreOrLessfunc,updateCharWordAndSentenceCount}
